@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router
-.use(require('./movies.js'))
-.use(require('./users.js'));
+router 
+.get('/sign-up', (req, res) => {
+    res.send("Sign up!");
+});
 
 module.exports = router;
