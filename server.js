@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
 const es6Renderer = require('express-es6-template-engine');
+const bodyParser = require('body-parser');
 
 // heroku doesn't need access to this file
 if (process.env.NODE_ENV !== 'production'){
     require('./env.js');
 }
+
+// set app to properly parse both form encoded data and JSON by suggesting having app use different config 
+// of the body parser middlewar in the server file 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 // es6 template engine
 app.engine('html', es6Renderer);
