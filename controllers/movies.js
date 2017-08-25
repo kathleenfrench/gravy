@@ -3,7 +3,11 @@ const router = express.Router();
 
 router
 .get('/', (req, res) => {
-    res.send('gravy');
+    res.render('application', {
+        partials: {
+            yield: 'views/movies/index.html'
+        }
+    });
 });
 
 module.exports = router;
