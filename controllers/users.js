@@ -29,6 +29,18 @@ router
             yield: 'views/users/sign-in.html'
         }
     })
+})
+.post('/sign-in', (req, res) => {
+    models.User.findOne({ where: { email: req.body.email }})
+    .then((user) => {
+        if (user && req.body.password === user.password) {
+            res.cookie('gravy_token', user.id, { httpOnly: true, maxAge: 86400000 });
+            res.redirect('/');
+        }
+    })
+    .catch((error) => {
+        return res.status(500);
+    });
 });
 
 module.exports = router;
