@@ -1,6 +1,5 @@
 'use strict';
 const bcrypt = require('bcryptjs');
-const salt = bcrypt.genSaltSync(10);
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
@@ -16,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.beforeCreate(function(user, options, done) {
-    //const salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(user.password, salt);
     user.password = hash;
   });
