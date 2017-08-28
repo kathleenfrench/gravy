@@ -22,6 +22,13 @@ router
 .get('/sign-out', (req, res) => {
     res.clearCookie('gravy_token');
     res.redirect('/');
+})
+.get('/sign-in', (req, res) => {
+    res.render('application', {
+        partials: {
+            yield: 'views/users/sign-in.html'
+        }
+    })
 });
 
 module.exports = router;
