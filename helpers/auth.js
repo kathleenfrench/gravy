@@ -9,5 +9,8 @@ module.exports = {
         }, 
         process.env.SECRET, 
             { expiresIn: "7d" });
+    },
+    validateToken: (token) => {
+        return jwt.verify(token, process.env.SECRET);
     }
 };
