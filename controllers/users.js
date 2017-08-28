@@ -5,13 +5,15 @@ const bcrypt = require('bcryptjs');
 const auth = require('../helpers/auth.js');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
+const form = require('../helpers/form.js');
 
 router 
 .get('/sign-up', csrfProtection, (req, res) => {
     res.render('application', {
         locals: {
             user: req.user, 
-            csrfToken: req.csrfToken()
+            csrfToken: req.csrfToken(), 
+            errors: {}
         },
         partials: {
             yield: 'views/users/sign-up.html'
@@ -25,7 +27,19 @@ router
         res.cookie('gravy_token', token, { httpOnly: true, maxAge: 86400000 });
         res.redirect('/');
     }).catch((error) =>{
-        res.status(500);
+        res.status(422);
+        const validationErrors = error.errors !== undefined ? 
+            form.formErrors(error.errors) : {};
+        return res.render('application', {
+            locals: {
+                user: req.user, 
+                csrfToken: req.csrfToken(),
+                errors: validationErrors
+            },
+            partials: {
+                yield: 'views/users/sign-up.html'
+            }
+        });
     });
 })
 .get('/sign-out', csrfProtection, (req, res) => {

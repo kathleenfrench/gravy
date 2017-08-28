@@ -4,10 +4,19 @@
         <input type="hidden" name="_csrf" value="${csrfToken}">        
         <label for="username">Username</label>
         <input name="username" type="text" required>
+        <span class="error" style=${'display:' + (errors.username ? 'inline' : 'none')}>
+                ${errors.username}
+        </span>
         <label for="email">Email</label>
         <input name="email" type="email" required>
+        <span class="error" style=${'display:' + (errors.email ? 'inline' : 'none')}>
+                ${errors.email}
+        </span>
         <label for="password">Password</label>
         <input name="password" type="password" required>
+        <span class="error" style=${'display:' + (errors.password ? 'inline' : 'none')}>
+                ${errors.password}
+        </span>
         <button type="submit">Sign Up</button>
     </form>
 </div>
