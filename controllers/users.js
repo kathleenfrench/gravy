@@ -3,19 +3,22 @@ const router = express.Router();
 const models = require('../models');
 const bcrypt = require('bcryptjs');
 const auth = require('../helpers/auth.js');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
 router 
-.get('/sign-up', (req, res) => {
+.get('/sign-up', csrfProtection, (req, res) => {
     res.render('application', {
         locals: {
-            user: req.user
+            user: req.user, 
+            csrfToken: req.csrfToken()
         },
         partials: {
             yield: 'views/users/sign-up.html'
         }
     });
 })
-.post('/sign-up', (req, res) => {
+.post('/sign-up', csrfProtection, (req, res) => {
     models.User.create(req.body, { fields: ['username', 'email', 'password'], individualHooks: true })
     .then((user) => {
         const token = auth.generateToken(user);
@@ -25,21 +28,22 @@ router
         res.status(500);
     });
 })
-.get('/sign-out', (req, res) => {
+.get('/sign-out', csrfProtection, (req, res) => {
     res.clearCookie('gravy_token');
     res.redirect('/');
 })
-.get('/sign-in', (req, res) => {
+.get('/sign-in', csrfProtection, (req, res) => {
     res.render('application', {
         locals: {
-            user: req.user
+            user: req.user,
+            csrfToken: req.csrfToken()
         },
         partials: {
             yield: 'views/users/sign-in.html'
         }
     })
 })
-.post('/sign-in', (req, res) => {
+.post('/sign-in', csrfProtection, (req, res) => {
     models.User.findOne({ where: { email: req.body.email }})
     .then((user) => {
         return bcrypt.compare(req.body.password, user.password)

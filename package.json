@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
     "express": "^4.15.4",
     "express-es6-template-engine": "^2.0.1",
     "jsonwebtoken": "^7.4.3",
