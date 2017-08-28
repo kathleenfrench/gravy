@@ -6,6 +6,9 @@
         <input name="email" type="text" required>
         <label for="password">Password</label>
         <input name="password" type="password" required>
+        <span class="error" style=${'display:' + (errors ? 'inline' : 'none')}>
+            ${errors} 
+        </span>
         <button type="submit">Sign In</button>
     </form>
 </div>
