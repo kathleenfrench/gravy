@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+const bcrypt = require('bcryptjs');
 
 router 
 .get('/sign-up', (req, res) => {
@@ -11,7 +12,7 @@ router
     });
 })
 .post('/sign-up', (req, res) => {
-    models.User.create(req.body, { fields: ['username', 'email', 'password'] })
+    models.User.create(req.body, { fields: ['username', 'email', 'password'], individualHooks: true })
     .then((user) => {
         res.cookie('gravy_token', user.id, { httpOnly: true, maxAge: 86400000 });
         res.redirect('/');
@@ -33,7 +34,7 @@ router
 .post('/sign-in', (req, res) => {
     models.User.findOne({ where: { email: req.body.email }})
     .then((user) => {
-        if (user && req.body.password === user.password) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
             res.cookie('gravy_token', user.id, { httpOnly: true, maxAge: 86400000 });
             res.redirect('/');
         }
