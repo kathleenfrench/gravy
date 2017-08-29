@@ -27,7 +27,7 @@ router
         };
         models.Comment.create(newCommentData)
         .then((comment) => {
-            res.redirect('/movies/${req.params.movieId}');
+            res.redirect(`/movies/${req.params.movieId}`);
         })
         .catch((error) => {
             console.log(error);

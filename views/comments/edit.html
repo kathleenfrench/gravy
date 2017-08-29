@@ -1,0 +1,17 @@
+<div class="form-container">
+        <h1>Edit Comment</h1>
+        <form action="#" method="post">
+            <input type="hidden" name="_csrf" value="${csrfToken}">
+            <label for="message">Message</label>
+            <textarea name="message" type="text" required></textarea>
+            <label for="rating">Rating</label>
+            <select name="rating" id="rating">
+              <option value="1" >⭐</option>
+              <option value="2">⭐⭐</option>
+              <option value="3">⭐⭐⭐</option>
+              <option value="4">⭐⭐⭐⭐</option>
+              <option value="5" selected>⭐⭐⭐⭐⭐</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    </div>
