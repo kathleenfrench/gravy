@@ -1,13 +1,3 @@
 <div class="movie-list">
     <h2> Your Favorites </h2>
-    ${favorites.results.map((favorite) => `
-        <a href="/favorites/${favorite.id}" class="favorite">
-            <img src="https://image.tmdb.org/t/p/w500${favorite.poster_path}" alt="Poster" />
-            <div class="movie-details">
-                <h3>${favorite.title}</h3> 
-                <p>${favorite.overview}</p>
-                <div class="movie-button">Details</div>
-            </div>   
-        </a>
-    `).join('')}
 </div>

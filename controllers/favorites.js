@@ -5,6 +5,19 @@ const csrfProtection = csrf({ cookie: true });
 const models = require('../models');
 
 router 
+.get('/favorites', csrfProtection, (req, res) => {
+    res.render('application', {
+        locals: {
+            user: req.user, 
+            //favorites: favorites, 
+            csrfToken: req.csrfToken()
+        }, 
+        partials: {
+            yield: 'views/favorites/index.html'
+        }
+    })
+    // to come
+})
 .post('/favorites', csrfProtection, (req, res) => {
     if (req.user) {
         models.Favorite.findOne({ where: { UserId: req.user.id, MovieId: req.params.movieId }})
