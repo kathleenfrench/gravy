@@ -8,9 +8,10 @@ router
 .get('/favorites', csrfProtection, (req, res) => {
     models.Favorite.findAll({
         where: { UserId: req.user.id }, 
-        include: [
-            { model: models.Favorite, attributes: ['id', 'title', 'overview', 'post_path' ]}
-        ], 
+        include: [{ 
+            model: models.Favorite, 
+            attributes: ['id', 'title', 'overview', 'post_path' ]
+        }], 
         order: '"createdAt" DESC'
     })
     .then((favorites) => {
@@ -18,7 +19,6 @@ router
             locals: {
                 user: req.user, 
                 favorites: favorites,
-                //favorites: favorites, 
                 csrfToken: req.csrfToken()
             }, 
             partials: {
