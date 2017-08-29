@@ -6,4 +6,16 @@
             <p>${movie.overview}</p>
             <p>${movie.release_data}</p>
         </div>
+        <div class="comments-container">
+            <h3>Comments</h3>
+            { user ?
+                `<a class="comment-button" href="/movies/${movie.id}/comments/new">
+                    New Comment 
+                </a>`
+                :
+                `<a class="comment-button" href="/sign-up">
+                    Sign In To Comment
+                </a>`
+            }
+        </div>
 </div>
