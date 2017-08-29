@@ -30,9 +30,12 @@
                                 <a href="/movies/${movie.id}/comments/${comment.id}" class="comment-button">
                                     Edit
                                 </a>
-                                <a href="#" class="comment-button">
-                                    Delete 
-                                </a>
+                                <form method="post" action="/comments/${comment.id}?_method=DELETE">
+                                    <input type="hidden" name="_csrf" value="${csrfToken}">
+                                    <button type="submit" class="comment-button">
+                                        Delete
+                                    </button>
+                                </form>
                             </div>`
                                 :
                                 ''

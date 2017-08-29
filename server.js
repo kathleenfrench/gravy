@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const auth = require('./middleware/auth.js');
 const csrf = require('./middleware/csrf.js');
+const methodOverride = require('method-override');
 
 // heroku doesn't need access to this file
 if (process.env.NODE_ENV !== 'production'){
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV !== 'production'){
 // of the body parser middlewar in the server file 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(csrf.checkCSRF);
 app.use(auth.checkCookie);

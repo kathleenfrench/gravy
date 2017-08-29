@@ -25,6 +25,7 @@ router
             UserId: req.user.id, 
             MovieId: req.params.movieId
         };
+
         models.Comment.create(newCommentData)
         .then((comment) => {
             res.redirect(`/movies/${req.params.movieId}`);
@@ -36,14 +37,15 @@ router
         throw new Error("Unauthorized");
     }
 })
-.get('/comments/:id/edit', csrfProtection, (res, req) => {
+.get('/comments/:id', csrfProtection, (res, req) => {
     models.Comment.findById(req.params.id)
     .then((comment) => {
         res.render('application', {
             locals: {
                 user: req.user, 
-                comment: comment,
-                csrfToken: req.csrfToken() 
+                movieId: req.params.movieId,
+                csrfToken: req.csrfToken(),                
+                comment: comment
             }, 
             partials: {
                 yield: 'views/comments/edit.html'
@@ -51,7 +53,48 @@ router
         });
     })
     .catch((error) => {
+        return console.log(error);
+    });
+})
+.put('/comments/:id', csrfProtection, (req, res) => {
+    models.Comment.findById(req.params.id)
+    .then((comment) => {
+        if (comment.UserId === req.user.id) {
+            const updatedCommentData = {
+                message: req.body.message,
+                rating: parseInt(req.body.rating)
+            };
+
+            return comment.update(updatedCommentData)
+            .then((updatedComment) => {
+                res.redirect(`/movies/${comment.MovieId}`);
+            })
+            .catch((error) => {
+                return console.log(error);
+            });
+
+        } else {
+            throw new Error("Unauthorized");
+        }
+    })
+    .catch((error) => {
         console.log(error);
+    });
+})
+.delete('/comments/:id', csrfProtection, (req, res) => {
+    models.Comment.findById(req.params.id)
+    .then((comment) => {
+        if (comment.UserId === req.user.id) {
+            return comment.destroy() 
+            .then((deletedComment) => {
+                res.redirect(`/movies/${comment.MovieId}`);
+            });
+        } else {
+            throw new Error("Unauthorized");
+        }
+    })
+    .catch((error) => {
+        return console.log(error);
     });
 });
 
