@@ -3,6 +3,7 @@ const router = express.Router();
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 const models = require('../models');
+const form = require('../helpers/form.js');
 
 router 
 .get('/movies/:movieId/comments/new', csrfProtection, (req, res) => {
@@ -10,6 +11,7 @@ router
         locals: {
             user: req.user, 
             movieId: req.params.movieId,
+            errors: {},
             csrfToken: req.csrfToken()
         }, 
         partials: {
@@ -31,7 +33,19 @@ router
             res.redirect(`/movies/${req.params.movieId}`);
         })
         .catch((error) => {
-            console.log(error);
+            res.status(422);
+            const commentErrors = error.errors !== undefined ? form.formErrors(error.errors) : {};
+            res.render('application', {
+                locals: {
+                  user: req.user,
+                  movieId: req.params.movieId,
+                  errors: commentErrors,
+                  csrfToken: req.csrfToken()
+                },
+                partials: {
+                  yield: 'views/comments/new.html'
+                }
+              });
         });
     } else {
         throw new Error("Unauthorized");

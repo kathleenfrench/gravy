@@ -8,6 +8,8 @@ module.exports = {
                 organizedErrors.email = 'Invalid Email';
             } else if (error.path === 'password'){
                 organizedErrors.password = 'Invalid Password';
+            } else if (error.path === 'message') {
+                organizedErrors.body = 'Invalid Comment';
             }
         }
         return organizedErrors;

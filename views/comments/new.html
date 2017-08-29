@@ -12,6 +12,9 @@
           <option value="4">⭐⭐⭐⭐</option>
           <option value="5" selected>⭐⭐⭐⭐⭐</option>
         </select>
+        <span class="error" style=${'display:' + (errors.message ? 'inline' : 'none')}>
+            ${errors.message}
+        </span>
         <button type="submit">Submit</button>
     </form>
 </div>
