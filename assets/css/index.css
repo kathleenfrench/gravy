@@ -63,8 +63,9 @@ body > .footer > img {
   font-weight: bolder;
   color: red;
   text-decoration: none;
-  font-size: 32px;
+  font-size: 45px;
   padding-left: 40px;
+  font-family: 'Satisfy', cursive;
 }
 
 .nav > .logo:focus {
