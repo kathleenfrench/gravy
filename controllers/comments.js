@@ -58,7 +58,8 @@ router
             locals: {
                 user: req.user, 
                 movieId: req.params.movieId,
-                csrfToken: req.csrfToken(),                
+                csrfToken: req.csrfToken(),  
+                errors: {},              
                 comment: comment
             }, 
             partials: {
@@ -84,7 +85,19 @@ router
                 res.redirect(`/movies/${comment.MovieId}`);
             })
             .catch((error) => {
-                return console.log(error);
+                res.status(422);
+                const commentErrors = error.errors !== undefined ? form.formErrors(error.errors) : {};                
+                res.render('application', {
+                  locals: {
+                    user: req.user,
+                    movieId: req.params.movieId,
+                    errors: commentErrors,
+                    csrfToken: req.csrfToken()
+                  },
+                  partials: {
+                    yield: 'views/comments/edit.html'
+                  }
+                });
             });
 
         } else {

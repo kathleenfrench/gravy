@@ -12,6 +12,9 @@
                     </option>
                 `)}
             </select>
+            <span class="error" style=${'display:' + (errors.body ? 'inline' : 'none')}>
+                    ${errors.body}
+            </span>
             <button type="submit">Update</button>
         </form>
     </div>
