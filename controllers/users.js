@@ -75,7 +75,7 @@ router
         })
     })
     .catch((error) => {
-        return res.status(401);
+        res.status(401);
         return res.render('application', {
             locals: {
                 user: req.user, 

@@ -57,7 +57,7 @@ router
         res.render('application', {
             locals: {
                 user: req.user, 
-                movieId: req.params.movieId,
+                movieId: comment.MovieId,
                 errors: {},              
                 comment: comment,
                 csrfToken: req.csrfToken(),
@@ -90,7 +90,7 @@ router
                 res.render('application', {
                   locals: {
                     user: req.user,
-                    movieId: req.params.movieId,
+                    movieId: comment.MovieId,
                     errors: commentErrors,
                     csrfToken: req.csrfToken()
                   },
