@@ -2,9 +2,6 @@
     <div class="movie-show-backdrop"> </div>
         <div class="movie-show-details">
             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="Poster">
-            <h3>${movie.title}</h3>
-            <p>${movie.overview}</p>
-            <p>${movie.release_data}</p>
             <form method="post" action="/movies/${movie.id}/favorites">
                 <input type="hidden" name="_csrf" value="${csrfToken}">
                 <input type="hidden" name="id" value="${movie.id}">
@@ -15,6 +12,9 @@
                     Add to Favorites
                 </button>
             </form>
+            <h3>${movie.title}</h3>
+            <p>${movie.overview}</p>
+            <p>${movie.release_data}</p>
         </div>
         <div class="comments-container">
             <h3>Comments</h3>
