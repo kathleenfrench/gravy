@@ -8,10 +8,10 @@ router
 .get('/favorites', csrfProtection, (req, res) => {
     models.Favorite.findAll({
         where: { UserId: req.user.id }, 
-        include: [{ 
+        /* include: [{ 
             model: models.Favorite, 
             attributes: ['id', 'title', 'overview', 'post_path' ]
-        }], 
+        }], */
         order: '"createdAt" DESC'
     })
     .then((favorites) => {
@@ -32,7 +32,7 @@ router
 })
 .post('/favorites', csrfProtection, (req, res) => {
     if (req.user) {
-        models.Favorite.findOne({ where: { UserId: req.user.id, MovieId: req.params.movieId }})
+        models.Favorite.findOrCreate({ where: { UserId: req.user.id, MovieId: req.params.movieId }})
         .then((favorite) => {
             if(favorite) throw new Error("Favorite exists.");
 
