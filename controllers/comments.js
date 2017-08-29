@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const models = require('../models');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
-const models = require('../models');
 const form = require('../helpers/form.js');
 
 router 
@@ -58,9 +58,9 @@ router
             locals: {
                 user: req.user, 
                 movieId: req.params.movieId,
-                csrfToken: req.csrfToken(),  
                 errors: {},              
-                comment: comment
+                comment: comment,
+                csrfToken: req.csrfToken(),
             }, 
             partials: {
                 yield: 'views/comments/edit.html'
