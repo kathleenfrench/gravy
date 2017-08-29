@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
+const models = require('../models');
 
 router 
 .get('/movies/:movieId/comments/new', csrfProtection, (req, res) => {
@@ -17,7 +18,23 @@ router
     });
 })
 .post('/movies/:movieId/comments', csrfProtection, (req, res) => {
-    console.log(req.body);
+    if (req.user) {
+        const newCommentData = {
+            message: req.body.message,
+            rating: parseInt(req.body.rating),
+            UserId: req.user.id, 
+            MovieId: req.params.movieId
+        };
+        models.Comment.create(newCommentData)
+        .then((comment) => {
+            res.redirect('/movies/${req.params.movieId}');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    } else {
+        throw new Error("Unauthorized");
+    }
 });
 
 module.exports = router;

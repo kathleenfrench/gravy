@@ -17,5 +17,29 @@
                     Sign In To Comment
                 </a>`
             }
+            <div class="comment-list">
+                ${comments.map((comment) => `
+                    <div class="comment">
+                        <div class="top">
+                            <div class="username">${comment.User.username}</div>
+                            <div class="rating">${Array(comment.rating).fill("⭐").join('')}</div>           
+                        </div>
+                        <div class="body">${comment.message}</div>
+                        ${user && comment.User.id === user.id ? 
+                            `<div class="bottom">
+                                <a href="#" class="comment-button">
+                                    Edit
+                                </a>
+                                <a href="#" class="comment-button">
+                                    Delete 
+                                </a>
+                            </div>`
+                                :
+                                ''
+                        }
+                    </div>
+                `).join('')
+                }
+            </div>
         </div>
 </div>
