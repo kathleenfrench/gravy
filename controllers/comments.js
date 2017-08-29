@@ -51,7 +51,7 @@ router
         throw new Error("Unauthorized");
     }
 })
-.get('/comments/:id', csrfProtection, (res, req) => {
+.get('/comments/:id', csrfProtection, (req, res) => {
     models.Comment.findById(req.params.id)
     .then((comment) => {
         res.render('application', {
