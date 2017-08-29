@@ -5,6 +5,16 @@
             <h3>${movie.title}</h3>
             <p>${movie.overview}</p>
             <p>${movie.release_data}</p>
+            <form method="post" action="/movies/${movie.id}/favorites">
+                <input type="hidden" name="_csrf" value="${csrfToken}">
+                <input type="hidden" name="id" value="${movie.id}">
+                <input type="hidden" name="post_path" value="${movie.post_path}">
+                <input type="hidden" name="title", value="${movie.title}">
+                <input type="hidden" name="overview", value="${movie.overview}">
+                <button type="submit" class="comment-button">
+                    Add to Favorites
+                </button>
+            </form>
         </div>
         <div class="comments-container">
             <h3>Comments</h3>
