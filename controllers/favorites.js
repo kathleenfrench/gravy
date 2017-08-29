@@ -6,17 +6,29 @@ const models = require('../models');
 
 router 
 .get('/favorites', csrfProtection, (req, res) => {
-    res.render('application', {
-        locals: {
-            user: req.user, 
-            //favorites: favorites, 
-            csrfToken: req.csrfToken()
-        }, 
-        partials: {
-            yield: 'views/favorites/index.html'
-        }
+    models.Favorite.findAll({
+        where: { UserId: req.params.userId }, 
+        include: [
+            { model: models.Favorite, attributes: ['id', 'title', 'overview', 'post_path', 'movieId' ]}
+        ], 
+        order: '"createdAt" DESC'
     })
-    // to come
+    .then((favorites) => {
+        res.render('application', {
+            locals: {
+                user: req.user, 
+                favorites: favorites,
+                //favorites: favorites, 
+                csrfToken: req.csrfToken()
+            }, 
+            partials: {
+                yield: 'views/favorites/index.html'
+            }
+        })
+    })
+    .catch((err) => {
+        return console.log(err);
+    })
 })
 .post('/favorites', csrfProtection, (req, res) => {
     if (req.user) {
