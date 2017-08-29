@@ -7,9 +7,9 @@ const models = require('../models');
 router 
 .get('/favorites', csrfProtection, (req, res) => {
     models.Favorite.findAll({
-        where: { UserId: req.params.userId }, 
+        where: { UserId: req.user.id }, 
         include: [
-            { model: models.Favorite, attributes: ['id', 'title', 'overview', 'post_path', 'movieId' ]}
+            { model: models.Favorite, attributes: ['id', 'title', 'overview', 'post_path' ]}
         ], 
         order: '"createdAt" DESC'
     })
@@ -56,6 +56,22 @@ router
     } else {
         throw new Error("Unauthorized");
     }
+})
+.delete('/favorites/:id', csrfProtection, (req, res) => {
+    models.Favorite.findById(req.params.id)
+    .then((favorite) => {
+        if (favorite.UserId === req.favorite.id) {
+            return favorite.destroy() 
+            .then((deletedFavorite) => {
+                res.redirect(`/movies/${comment.MovieId}`);
+            });
+        } else {
+            throw new Error("Unauthorized");
+        }
+    })
+    .catch((error) => {
+        return console.log(error);
+    })
 });
 
 module.exports = router;
