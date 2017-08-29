@@ -35,6 +35,24 @@ router
     } else {
         throw new Error("Unauthorized");
     }
+})
+.get('/comments/:id/edit', csrfProtection, (res, req) => {
+    models.Comment.findById(req.params.id)
+    .then((comment) => {
+        res.render('application', {
+            locals: {
+                user: req.user, 
+                comment: comment,
+                csrfToken: req.csrfToken() 
+            }, 
+            partials: {
+                yield: 'views/comments/edit.html'
+            }
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 });
 
 module.exports = router;

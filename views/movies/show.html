@@ -27,7 +27,7 @@
                         <div class="body">${comment.message}</div>
                         ${user && comment.User.id === user.id ? 
                             `<div class="bottom">
-                                <a href="#" class="comment-button">
+                                <a href="/movies/${movie.id}/comments/${comment.id}" class="comment-button">
                                     Edit
                                 </a>
                                 <a href="#" class="comment-button">
