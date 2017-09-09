@@ -15,7 +15,7 @@ router
         order: '"createdAt" DESC'
     })
     .then((favorites) => {
-        res.render('application', {
+        return res.render('application', {
             locals: {
                 user: req.user, 
                 favorites: favorites,
@@ -30,9 +30,15 @@ router
         return console.log(err);
     })
 })
-.post('/favorites', csrfProtection, (req, res) => {
+.post('/movies/${movie.id}/favorites', csrfProtection, (req, res) => {    
     if (req.user) {
-        models.Favorite.findOrCreate({ where: { UserId: req.user.id, MovieId: req.params.movieId }})
+        
+        models.Favorite.findOrCreate({ where: // or findOrCreate?/findOne
+            { 
+                UserId: req.user.id, 
+                MovieId: req.params.movieId 
+            }
+        })
         .then((favorite) => {
             if(favorite) throw new Error("Favorite exists.");
 
@@ -46,7 +52,7 @@ router
 
             models.Favorite.create(newFavoriteData)
             .then((favorite) => {
-                res.redirect(`/movies/${req.params.movieId}`);
+                return res.redirect(`/movies/${req.params.movieId}`);
             });
         })
         .catch((error) => {
@@ -63,7 +69,7 @@ router
         if (favorite.UserId === req.favorite.id) {
             return favorite.destroy() 
             .then((deletedFavorite) => {
-                res.redirect(`/movies/${comment.MovieId}`);
+                return res.redirect(`/movies/${comment.MovieId}`);
             });
         } else {
             throw new Error("Unauthorized");
