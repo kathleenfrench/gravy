@@ -30,7 +30,7 @@ router
         return console.log(err);
     })
 })
-.post('/movies/${movie.id}/favorites', csrfProtection, (req, res) => {    
+.post('/movies/${movie.id}/favorites', csrfProtection, (req, res) => {   //:id option ?  
     if (req.user) {
         
         models.Favorite.findOrCreate({ where: // or findOrCreate?/findOne
