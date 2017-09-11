@@ -27,10 +27,12 @@
     "jsonwebtoken": "^7.4.3",
     "method-override": "^2.3.9",
     "nodemon": "^1.11.0",
+    "path": "^0.12.7",
     "pg": "6.1.5",
     "pg-hstore": "2.3.2",
     "sequelize": "^3.30.4",
-    "sequelize-cli": "^2.7.0"
+    "sequelize-cli": "^2.7.0",
+    "serve-favicon": "^2.4.3"
   },
   "devDependencies": {}
 }

@@ -1,4 +1,6 @@
 const express = require('express');
+const favicon = require('serve-favicon');
+const path = require('path');
 const app = express();
 const es6Renderer = require('express-es6-template-engine');
 const bodyParser = require('body-parser');
@@ -11,6 +13,8 @@ const methodOverride = require('method-override');
 if (process.env.NODE_ENV !== 'production'){
     require('./env.js');
 }
+
+app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')))
 
 // set app to properly parse both form encoded data and JSON by suggesting having app use different config 
 // of the body parser middlewar in the server file 
