@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production'){
     require('./env.js');
 }
 
-app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 // set app to properly parse both form encoded data and JSON by suggesting having app use different config 
 // of the body parser middlewar in the server file 
