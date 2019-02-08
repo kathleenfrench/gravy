@@ -4,10 +4,12 @@ const axios = require('axios');
 const models = require('../models');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
+const dotenv = require('dotenv').config()
+const API_KEY = dotenv.parsed.MOVIE_API_KEY;
 
 router
 .get('/', (req, res) => {
-    const popularMoviesURL = `http://api.themoviedb.org/3/movie/popular?api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=1`;
+    const popularMoviesURL = `http://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     axios.get(popularMoviesURL)
         .then((api_res) => {
             res.render('application', {
@@ -25,7 +27,7 @@ router
     });
 })
 .get('/movies/:id', csrfProtection, (req, res) => {
-    const movieURL = `http://api.themoviedb.org/3/movie/${req.params.id}?api_key=${process.env.MOVIE_API_KEY}&language=en-US`;
+    const movieURL = `http://api.themoviedb.org/3/movie/${req.params.id}?api_key=${API_KEY}&language=en-US`;
 
     axios.get(movieURL) 
         .then((api_res) => {
