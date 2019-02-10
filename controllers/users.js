@@ -66,9 +66,10 @@ router
 
         return bcrypt.compare(req.body.password, user.password)
         .then((match) => {
+            console.log('match: ', match);
             if(match){
                 const token = auth.generateToken(user);
-                res.cookie('gravy_token', token, { httpOnly: true, maxAge: 86400000 });
+                // res.cookie('gravy_token', token, { httpOnly: true, maxAge: 86400000 });
                 res.redirect('/');
             } else {
                 throw new Error("Email or Password is incorrect.")
