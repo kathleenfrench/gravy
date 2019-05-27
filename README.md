@@ -8,9 +8,9 @@ a movie review site built in `node.js`
 
 `npm install`
 
-### RUN LOCAL ENV W/ HOT RELOAD
+### RUN LOCALLY
 
-`npm run dev`
+`npm run start`
 
 ####  PSQL setup
 

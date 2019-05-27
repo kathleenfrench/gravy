@@ -4,9 +4,7 @@
   "description": "a movie review web application built using nodejs & express",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "go": "cross-env DEBUG=express-sequelize node ./bin/www",
-    "dev": "nodemon server.js",
+    "start": "cross-env DEBUG=express-sequelize node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
     "sequelize": "node_modules/.bin/sequelize",
     "migrate": "node_modules/.bin/sequelize db:migrate"
