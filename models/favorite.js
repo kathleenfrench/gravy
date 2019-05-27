@@ -34,12 +34,13 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        Favorite.belongsTo(models.User);
-        Favorite.belongsTo(models.Favorite);
-      }
-    }
+    freezeTableName: true
   });
+
+  Favorite.associate = function(models) {
+    Favorite.belongsTo(models.User);
+    Favorite.belongsTo(models.Favorite);
+  }
+
   return Favorite;
 };

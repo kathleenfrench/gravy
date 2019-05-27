@@ -34,5 +34,7 @@ app.use(require('./controllers'));
 // server port
 const port = process.env.PORT || 3000;
 
-app.listen(port);
-console.log('express is running on: ' + port);
+// app.listen(port);
+// console.log('express is running on: ' + port);
+
+module.exports = app;

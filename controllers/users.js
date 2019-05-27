@@ -24,7 +24,6 @@ router
     models.User.create(req.body, { fields: ['username', 'email', 'password'], individualHooks: true })
     .then((user) => {
         const token = auth.generateToken(user);
-        console.log('token: ', token);
         res.cookie('gravy_token', token, { httpOnly: true, maxAge: 86400000 });
         res.redirect('/');
     }).catch((error) =>{

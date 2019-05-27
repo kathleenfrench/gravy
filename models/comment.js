@@ -26,11 +26,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     UserId: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        Comment.belongsTo(models.User);
-      }
-    }
+    freezeTableName: true
   });
+
+  Comment.associate = function(models) {
+    Comment.belongsTo(models.User);
+  }
+
   return Comment;
 };

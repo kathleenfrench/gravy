@@ -33,13 +33,13 @@ module.exports = function(sequelize, DataTypes) {
       }      
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        User.hasMany(models.Comment);
-        User.hasMany(models.Favorite);
-      }
-    }
+    freezeTableName: true
   });
+
+  User.associate = function(models) {
+    User.hasMany(models.Comment);
+    User.hasMany(models.Favorite);
+  }
 
   User.beforeCreate((user) => {
     let salt = bcrypt.genSaltSync(12);

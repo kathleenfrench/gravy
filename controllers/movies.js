@@ -32,11 +32,18 @@ router
     axios.get(movieURL) 
         .then((api_res) => {
             models.Comment.findAll({
-                where: { MovieId: req.params.id }, 
+                where: { 
+                  MovieId: req.params.id 
+                }, 
                 include: [
-                    { model: models.User, attributes: ['id', 'username']}
+                    { 
+                      model: models.User, 
+                      attributes: ['id', 'username']
+                    }
                 ], 
-                order: '"createdAt" DESC'
+                order: [
+                  ['createdAt', 'DESC'],
+                ],
             })
             .then((comments) => {
                 res.render('application', {
