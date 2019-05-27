@@ -1,9 +1,10 @@
 {
   "development": {
     "username": "postgres",
-    "password": "password",
+    "password": "null",
     "database": "gravy",
     "host": "127.0.0.1",
+    "port": 5432,
     "dialect": "postgres",
     "secret": "worldisfullofdevelopers"
   },
